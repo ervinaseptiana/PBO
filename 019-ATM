@@ -1,0 +1,122 @@
+import java.util.Scanner;
+
+public class ATM {
+
+    //deklarasi variabel secara public
+    public static Scanner atm = new Scanner(System.in);
+    public static double nominal, saldo = 25000;
+    public static int setor, bank;
+    public static String transaksi, rekening, struk;
+
+    public static void main(String[] args) {
+        boolean benar = true;
+
+        //fungsi untuk jalannya atm
+        System.out.println("=====SELAMAT DATANG=====");
+        do {
+            System.out.println("Masukkan pin anda : ");
+            int pin = atm.nextInt();
+
+            //kondisi
+            if (pin == 008019 || pin == 210019) {
+                pilih();
+            } else {
+                System.out.println("PIN SALAH!");
+                benar = false;
+            }
+        } while (benar == false);
+        do{
+            System.out.println("\nApakah anda ingin melakukan transaksi lain?[Ya/Tidak]");
+            transaksi = atm.next();
+
+            if (transaksi.equalsIgnoreCase("Ya")) {
+                pilih();
+            } else if (transaksi.equalsIgnoreCase("Tidak")) {
+                cetak_struk();
+            } else {
+                System.out.println("[Maaf yang anda masukkan salah]");
+            }
+        }while(transaksi.equalsIgnoreCase("Ya"));
+    }
+
+    //fungsi
+    static void pilih() {
+        System.out.println(" 1. Setor Tunai ");
+        System.out.println(" 2. Tarik Tunai ");
+        System.out.println(" 3. Transfer ");
+        System.out.println("\n[Masukkan pilihan anda");
+        int pilih = atm.nextInt();
+        switch (pilih){
+            case 1 :
+                System.out.println("[Masukkan Uang anda: ]");
+                nominal = atm.nextDouble();
+                System.out.println("Data yang anda masukkan : Rp. "+nominal);
+                transfer();
+                break;
+            case 2 :
+                System.out.println("Masukkan nominal : ");
+                nominal = atm.nextDouble();
+                //kondisi
+                if (nominal <= saldo){
+                    saldo = saldo - nominal;
+                    System.out.println("[Ambil uang anda]");
+                }
+                else {
+                    System.out.println("Saldo anda tidak mencukupi untuk transaksi tunai");
+                }
+                break;
+            default:
+                System.out.println("[Data yang anda masukkan salah!]");
+        }
+    }
+    static void transfer(){
+        System.out.println("Transfer ke : ");
+        System.out.println(" 1. Rekening Tabungan ");
+        System.out.println(" 2. Rekening Lain ");
+        System.out.println("[Masukkan pilihan anda]");
+        setor = atm.nextInt();
+        if (setor == 1){
+            saldo = saldo + nominal;
+        } else if (setor == 2) {
+            System.out.println("Pilih Bank : ");
+            System.out.println(" 1. BRI ");
+            System.out.println(" 2. BNI ");
+            System.out.println(" 3. BCA ");
+            System.out.println(" 4. MANDIRI ");
+            System.out.println("[Masukkan pilihan]");
+            bank = atm.nextInt();
+            switch (bank){
+                case 1 :
+                    System.out.println("Masukkan no rekening : ");
+                    rekening = atm.next();
+                    System.out.println("Transaksi Berhasil \n Rincian : ");
+                    System.out.println("Bank : BRI \n No Rek. : "+rekening);
+                    System.out.println("Jumlah transfer : Rp. "+nominal);
+                    break;
+                case 2 :
+                    System.out.println("Masukkan no rekening : ");
+                    rekening = atm.next();
+                    System.out.println("Transaksi Berhasil \n Rincian : ");
+                    System.out.println("Bank : BNI \n No Rek. : "+rekening);
+                    System.out.println("Jumlah transfer : Rp. "+nominal);
+                    break;
+                case 3 :
+                    System.out.println("Masukkan no rekening : ");
+                    rekening = atm.next();
+                    System.out.println("Transaksi Berhasil \n Rincian : ");
+                    System.out.println("Bank : BCA \n No Rek. : "+rekening);
+                    System.out.println("Jumlah transfer : Rp. "+nominal);
+                    break;
+                case 4 :
+                    System.out.println("Masukkan no rekening : ");
+                    rekening = atm.next();
+                    System.out.println("Transaksi Berhasil \n Rincian : ");
+                    System.out.println("Bank : MANDIRI \n No Rek. : "+rekening);
+                    System.out.println("Jumlah transfer : Rp. "+nominal);
+                    break;
+                default:
+            }
+        }
+    }
+}
+
